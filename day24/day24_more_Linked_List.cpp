@@ -39,19 +39,20 @@ void display(Node* head){
 
 void removeDuplicates(Node* head){
     Node *current = head;
-    Node *next_next;
-    if(current == NULL){
-        return;
-    }
-    while(current->next != NULL){
-        if(current->data == current->next->data){
-            next_next = current->next->next;
-            free(current->next);
-            current->next = next_next;
+    Node *temp;
+    while(current != NULL && current->next != NULL){
+        Node *runner = current;
+        while (runner->next != NULL){
+            if(current->data == runner->next->data){
+                temp = runner->next;
+                runner->next = runner->next->next;
+                free(temp);
+            }
+            else{
+                runner = runner->next;
+            }
         }
-        else{
-            current = current->next;
-        }
+        current = current->next;
     }
 }
 int main() {
